@@ -15,13 +15,10 @@
 
 - [x] 觸發Agent開發 , 更新 ticket
 
-### Todo
-- Story ticket 分析
-- Agent開發通知(開始&結束)
-- Agent處理狀態
-- 同時處理上限設定
-
 ## tech stack
+- go + gin : webhook
+- notion : pm tool
+- claude : ai agent
 
 ## 部署與設定
 
@@ -34,5 +31,9 @@
 
 ### docker image
 
-
+## Todo-list
+- Story ticket 分析
+- Agent開發通知(開始&結束)
+- Agent處理狀態
+- 同時處理上限設定
 
