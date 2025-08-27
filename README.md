@@ -23,7 +23,13 @@
 
 ## tech stack
 
-## How to use?
+## 部署與設定
+
+### Prerequisites
+
+### Environment Variables
+- PROJECT_PATH 專案資料夾路徑 , 預設./projects
+
 ### clone repo , 於本地啟動並使用claude code 相關設定
 
 ### docker image
