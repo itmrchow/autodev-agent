@@ -23,6 +23,9 @@
 ## 部署與設定
 
 ### Prerequisites
+- go 1.24+
+- webhook knowledge
+- 
 
 ### Environment Variables
 - PROJECT_PATH 專案資料夾路徑 , 預設./projects

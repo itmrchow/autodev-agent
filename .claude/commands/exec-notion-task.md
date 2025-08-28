@@ -34,9 +34,7 @@
     - git 切換到 main branch
     - 拉取最新變更 git pull origin main
     - 建立開發環境
-      - 創建並切換到新分支
-      - 推送分支到遠端
-      - 創建 worktree , pkg name = "worktree-[project-name]-[branch-name]"
+      - 使用 git worktree 建立新分支與獨立開發pkg , pkg name = "worktree-[project-name]-[branch-name]"
   - 任務開發
     - 進入開發資料夾 , 於開發資料夾內開發
     - 讀取專案資料夾內claude.md , 根據claude.md內的指令進行執行
