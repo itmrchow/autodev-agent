@@ -21,7 +21,7 @@
   - 檢查ticket的assignee id 是否與當前的notion user id一致, 如果是空白或不是自己則不執行後續任務 , 並顯示"該任務未指派給Claude"
 - task exec
   - 判斷ticket專案
-    - 檢查projects.md與projects資料夾 , 判斷是否存在於服務
+    - 檢查projects資料夾與資料夾中的projects.md , 判斷是否存在於服務
       - 已存在的專案
         - 於該專案的資料夾內執行任務
       - 不存在專案
