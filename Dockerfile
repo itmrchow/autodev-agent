@@ -19,7 +19,7 @@ FROM alpine:latest
 ARG CLAUDE_CODE_VERSION=latest
 
 # 安裝必需的套件並建立用戶
-RUN apk --no-cache add ca-certificates tzdata bash git nodejs npm && \
+RUN apk --no-cache add ca-certificates tzdata bash git nodejs npm curl && \
     addgroup -g 1001 appuser && \
     adduser -D -s /bin/sh -u 1001 -G appuser appuser && \
     rm -rf /var/cache/apk/*
