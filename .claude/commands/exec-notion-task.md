@@ -25,7 +25,6 @@
       - 已存在的專案
         - 於該專案的資料夾內執行任務
       - 不存在專案
-        - 建立專案資料夾
         - 於github尋找專案 , clone到專案資料夾
         - 設定並確認remote repo為github上尋找到的專案repo
         - 更新projects.md
@@ -34,13 +33,16 @@
     - git 切換到 main branch
     - 拉取最新變更 git pull origin main
     - 建立開發環境
-      - 使用 git worktree 建立新分支與獨立開發pkg , pkg name = "worktree-[project-name]-[branch-name]"
+      - 建立開發分支 git branch [branch-name]
+      - 建立開發資料夾 git worktree add worktree-[project-name] [branch-name]
   - 任務開發
     - 進入開發資料夾 , 於開發資料夾內開發
     - 讀取專案資料夾內claude.md , 根據claude.md內的指令進行執行
     - 根據task內容進行功能開發
     - 可以跳過功能測試部分, 後續review時再進行測試
-    - 開發完成推送分支到遠端
+  - 任務完成
+    - git push origin [branch-name]
+    - git worktree remove worktree-[project-name]
 - ticket update
   - 更新notion ticket status -> Review (待審核)
   - 更新notion ticket description -> 更新項目內容
