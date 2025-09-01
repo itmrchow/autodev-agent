@@ -1,0 +1,71 @@
+# Git 相關文件
+.git
+.gitignore
+.gitattributes
+
+# Go 相關
+__debug_bin*
+*.test
+*.out
+*.exe
+*.dll
+*.so
+*.dylib
+coverage.txt
+coverage.out
+
+# IDE 相關
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS 相關
+.DS_Store
+Thumbs.db
+
+# Log 文件
+*.log
+logs/
+
+# 臨時文件
+tmp/
+temp/
+*.tmp
+
+# Node.js (用於 frontend 子項目)
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# 環境文件
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Docker 相關
+Dockerfile
+.dockerignore
+docker-compose*.yml
+
+# 文檔和說明
+README.md
+*.md
+docs/
+!claude.md
+
+# 測試文件
+*_test.go
+test/
+tests/
+
+# API 測試文件
+*.http
+api.http
+
+# projects
+projects/
