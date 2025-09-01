@@ -30,8 +30,8 @@
 ### Environment Variables
 
 #### 核心服務設定
-- `PM_TOOL_NOTION_TOKEN` Notion API token
-- `PM_TOOL_JIRA_TOKEN` Jira API token (optional)
+<!-- - `PM_TOOL_NOTION_TOKEN` Notion API token
+- `PM_TOOL_JIRA_TOKEN` Jira API token (optional) -->
 - `CODE_REPO_GITHUB_TOKEN` GitHub API token
 - `PORT` 服務端口，預設 `8090`
 
@@ -40,13 +40,49 @@
 - `GITHUB_USER_EMAIL` GitHub 使用者 email
 - `GITHUB_PERSONAL_TOKEN` GitHub Personal Access Token
 
-#### Claude Code 配置
-- `CLAUDE_API_KEY` Claude API key（用於 AI 開發功能）
+<!-- #### Claude Code 配置
+- `CLAUDE_API_KEY` Claude API key（用於 AI 開發功能） -->
 
-### 本地開發
+### 部署
+
+#### Use Docker image
+
+```bash
+# 拉取最新映像
+docker pull itmrchow/autodev-agent:v0.1.0
+
+# 運行容器（包含完整配置）
+docker run -d \
+  -p 8090:8090 \
+  -e CODE_REPO_GITHUB_TOKEN=your_github_token \
+  -e GITHUB_USER_NAME="Your Name" \
+  -e GITHUB_USER_EMAIL="your.email@example.com" \
+  -e GITHUB_PERSONAL_TOKEN=your_github_personal_token \
+  -v $(pwd)/projects:/app/projects \
+  --name autodev-agent \
+  itmrchow/autodev-agent:v0.1.0
+```
+
+#### docker 驗證設定
+目前有一些限制 , 需要手動通過驗證
+
+- Claude code by Claude.ai account: Claude.ai 目前沒有 API token 可以自動化登入
+  - `docker exec -it autodev-agent claude` 執行 claude code , 並根據指示進入交互模式進行驗證
+  - 點擊驗證連結 , 進行驗證後將驗證碼貼回Claude Code
+
+- Notion MCP: Notion MCP 目前沒有自動化登入
+  - 在Claude Code 交互模式 `/mcp` , 選擇 `notion`
+  - 選擇Authenticate , 進入驗證 , 交互會顯示驗證連結 , 複製驗證連結到瀏覽器進行驗證
+  - 完成後會轉跳 , 會出現找不到網頁 , 將callback網址複製
+  - 輸入以下指令 , 完成驗證
+  ```
+  docker exec -it autodev-agent curl -X GET "<call_back_url>"
+  ```
+
+#### Local development
 ```bash
 # Clone repo
-git clone <repo-url>
+git clone github.com/itmrchow/autodev-agent
 cd autodev-agent
 
 # 複製環境變量範本
@@ -57,74 +93,6 @@ cp .env.example .env
 go run main.go
 ```
 
-### Docker 部署
-
-#### 1. 使用預構建的 Docker Image
-```bash
-# 拉取最新映像
-docker pull <registry>/autodev-agent:latest
-
-# 運行容器（包含完整配置）
-docker run -d \
-  -p 8090:8090 \
-  -e PM_TOOL_NOTION_TOKEN=your_notion_token \
-  -e CODE_REPO_GITHUB_TOKEN=your_github_token \
-  -e GITHUB_USER_NAME="Your Name" \
-  -e GITHUB_USER_EMAIL="your.email@example.com" \
-  -e GITHUB_PERSONAL_TOKEN=your_github_personal_token \
-  -e CLAUDE_API_KEY=your_claude_api_key \
-  -v $(pwd)/projects:/app/projects \
-  --name autodev-agent \
-  <registry>/autodev-agent:latest
-```
-
-#### 2. 本地構建 Docker Image
-```bash
-# 構建映像
-./build.sh
-
-# 或指定名稱和標籤
-./build.sh -n myapp -t v1.0.0
-
-# 運行容器（包含完整配置）
-docker run -d \
-  -p 8090:8090 \
-  -e PM_TOOL_NOTION_TOKEN=your_notion_token \
-  -e CODE_REPO_GITHUB_TOKEN=your_github_token \
-  -e GITHUB_USER_NAME="Your Name" \
-  -e GITHUB_USER_EMAIL="your.email@example.com" \
-  -e GITHUB_PERSONAL_TOKEN=your_github_personal_token \
-  -e CLAUDE_API_KEY=your_claude_api_key \
-  -v $(pwd)/projects:/app/projects \
-  --name autodev-agent \
-  autodev-agent:latest
-```
-
-#### 3. 發布到 Docker Registry
-```bash
-# 發布到 Docker Hub
-./publish.sh -r yourusername -t v1.0.0
-
-# 發布到私有 registry
-./publish.sh -r registry.com/yourusername -t v1.0.0
-```
-
-### GitHub Personal Access Token 設定
-
-1. 前往 GitHub Settings → Developer settings → Personal access tokens → Tokens (classic)
-2. 點擊 "Generate new token (classic)"
-3. 選擇所需權限：
-   - `repo` - 完整的 repository 權限
-   - `workflow` - 如果需要操作 GitHub Actions
-4. 複製產生的 token 並設定到 `GITHUB_PERSONAL_TOKEN` 環境變數
-
-### Claude API Key 設定
-
-1. 前往 [Anthropic Console](https://console.anthropic.com/)
-2. 登入並前往 API Keys 頁面
-3. 點擊 "Create Key" 建立新的 API key
-4. 複製產生的 API key 並設定到 `CLAUDE_API_KEY` 環境變數
-
 ### 健康檢查
 服務啟動後可以透過以下端點檢查狀態：
 ```bash
@@ -132,8 +100,11 @@ curl http://localhost:8090/health
 ```
 
 ## Todo-list
+- other model or Agent framework
+- claude code 持久化
+- update prompt to English
+- other pm tool
 - Story ticket 分析
 - Agent開發通知(開始&結束)
 - Agent處理狀態
 - 同時處理上限設定
-
