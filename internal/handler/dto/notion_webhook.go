@@ -5,6 +5,8 @@ import (
 	"time"
 )
 
+var _ PmToolReqInterface = &NotionWebhookDto{}
+
 // NotionWebhookDto 是 Notion webhook 事件的頂級結構體
 type NotionWebhookDto struct {
 	APIVersion     string         `json:"api_version"`

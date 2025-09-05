@@ -1,0 +1,262 @@
+
+GET https://3f08ce142fb0.ngrok-free.app/health
+Content-Type: application/json
+
+### test claude
+POST http://localhost:8090/mytest
+Content-Type: application/json
+
+### notion webhook
+POST http://localhost:8080/notion/webhook
+Content-Type: application/json
+
+{
+  "api_version": "2022-06-28",
+  "attempt_number": 1,
+  "authors": [
+    { "id": "255d872b-594c-81bb-bbf5-0002d9df242a", "type": "person" }
+  ],
+  "data": {
+    "parent": {
+      "id": "2555ab0c-0f4c-8163-9bad-efe71a3dcfd5",
+      "type": "database"
+    },
+    "updated_properties": ["notion%3A%2F%2Ftasks%2Fassign_property"]
+  },
+  "entity": { "id": "2575ab0c-0f4c-80db-89c5-ebace1df2173", "type": "page" },
+  "id": "0b80fd5a-54dc-401f-a4ff-4c6c4d66e84d",
+  "integration_id": "255d872b-594c-8089-bdbe-0037e2b47057",
+  "subscription_id": "25ad872b-594c-817d-a883-0099f908344c",
+  "timestamp": "2025-08-25T09:44:50.278Z",
+  "type": "page.properties_updated",
+  "workspace_id": "e1033bdf-7cb3-43f8-b35e-bc8768a77b8d",
+  "workspace_name": "建霆 吳's Notion"
+}
+
+### jira webhook
+POST http://localhost:8090/jira/webhook
+Content-Type: application/json
+
+{
+  "changelog": {
+    "id": "10041",
+    "items": [
+      {
+        "field": "assignee",
+        "fieldId": "assignee",
+        "fieldtype": "jira",
+        "from": null,
+        "fromString": null,
+        "tmpFromAccountId": null,
+        "tmpToAccountId": "712020:e014d1c6-6740-4e32-881f-f925e8e074f1",
+        "to": "712020:e014d1c6-6740-4e32-881f-f925e8e074f1",
+        "toString": "Jeff Wu (AI)"
+      }
+    ]
+  },
+  "issue": {
+    "fields": {
+      "aggregateprogress": { "progress": 0, "total": 0 },
+      "aggregatetimeestimate": null,
+      "aggregatetimeoriginalestimate": null,
+      "aggregatetimespent": null,
+      "assignee": {
+        "accountId": "712020:e014d1c6-6740-4e32-881f-f925e8e074f1",
+        "accountType": "atlassian",
+        "active": true,
+        "avatarUrls": {
+          "16x16": "https://secure.gravatar.com/avatar/8d313723c746080bd77dd2ba733b16b2?d=https%3A%2F%2Favatar-management--avatars.us-west-2.prod.public.atl-paas.net%2Fdefault-avatar-3.png",
+          "24x24": "https://secure.gravatar.com/avatar/8d313723c746080bd77dd2ba733b16b2?d=https%3A%2F%2Favatar-management--avatars.us-west-2.prod.public.atl-paas.net%2Fdefault-avatar-3.png",
+          "32x32": "https://secure.gravatar.com/avatar/8d313723c746080bd77dd2ba733b16b2?d=https%3A%2F%2Favatar-management--avatars.us-west-2.prod.public.atl-paas.net%2Fdefault-avatar-3.png",
+          "48x48": "https://secure.gravatar.com/avatar/8d313723c746080bd77dd2ba733b16b2?d=https%3A%2F%2Favatar-management--avatars.us-west-2.prod.public.atl-paas.net%2Fdefault-avatar-3.png"
+        },
+        "displayName": "Jeff Wu (AI)",
+        "self": "https://itmrchow.atlassian.net/rest/api/2/user?accountId=712020%3Ae014d1c6-6740-4e32-881f-f925e8e074f1",
+        "timeZone": "Asia/Taipei"
+      },
+      "attachment": [],
+      "components": [],
+      "created": "2025-09-01T21:23:22.478+0800",
+      "creator": {
+        "accountId": "5d145a8e5a5f210c4873c54d",
+        "accountType": "atlassian",
+        "active": true,
+        "avatarUrls": {
+          "16x16": "https://secure.gravatar.com/avatar/feb838bed6d6320f103dd79a05f71d5c?d=https%3A%2F%2Favatar-management--avatars.us-west-2.prod.public.atl-paas.net%2Fdefault-avatar-3.png",
+          "24x24": "https://secure.gravatar.com/avatar/feb838bed6d6320f103dd79a05f71d5c?d=https%3A%2F%2Favatar-management--avatars.us-west-2.prod.public.atl-paas.net%2Fdefault-avatar-3.png",
+          "32x32": "https://secure.gravatar.com/avatar/feb838bed6d6320f103dd79a05f71d5c?d=https%3A%2F%2Favatar-management--avatars.us-west-2.prod.public.atl-paas.net%2Fdefault-avatar-3.png",
+          "48x48": "https://secure.gravatar.com/avatar/feb838bed6d6320f103dd79a05f71d5c?d=https%3A%2F%2Favatar-management--avatars.us-west-2.prod.public.atl-paas.net%2Fdefault-avatar-3.png"
+        },
+        "displayName": "吳建霆",
+        "self": "https://itmrchow.atlassian.net/rest/api/2/user?accountId=5d145a8e5a5f210c4873c54d",
+        "timeZone": "Asia/Taipei"
+      },
+      "customfield_10001": null,
+      "customfield_10015": "2025-09-01",
+      "customfield_10016": null,
+      "customfield_10019": "0|hzzzzz:",
+      "customfield_10020": [
+        { "boardId": 1, "id": 1, "name": "SCRUM 衝刺 1", "state": "future" }
+      ],
+      "customfield_10021": null,
+      "customfield_10035": null,
+      "description": "這個任務在測試autodev-agent是否能收到jira的任務event\n\n* 收到任務, 請在根目錄建立一個 jira.md 的檔案\n* jira.md內新增 “Hi jira“",
+      "duedate": null,
+      "environment": null,
+      "fixVersions": [],
+      "issuelinks": [],
+      "issuerestriction": { "issuerestrictions": {}, "shouldDisplay": true },
+      "issuetype": {
+        "avatarId": 10318,
+        "description": "Tasks track small, distinct pieces of work.",
+        "entityId": "1e147689-817d-4bde-bdaa-e008380e7a0d",
+        "hierarchyLevel": 0,
+        "iconUrl": "https://itmrchow.atlassian.net/rest/api/2/universal_avatar/view/type/issuetype/avatar/10318?size=medium",
+        "id": "10001",
+        "name": "Task",
+        "self": "https://itmrchow.atlassian.net/rest/api/2/issuetype/10001",
+        "subtask": false
+      },
+      "labels": [],
+      "lastViewed": "2025-09-03T13:21:39.951+0800",
+      "parent": {
+        "fields": {
+          "issuetype": {
+            "avatarId": 10307,
+            "description": "大型工作會追蹤相關錯誤、故事和任務的集合。",
+            "entityId": "e479c5df-b2c9-4040-8e57-916b8ea8f1df",
+            "hierarchyLevel": 1,
+            "iconUrl": "https://itmrchow.atlassian.net/rest/api/2/universal_avatar/view/type/issuetype/avatar/10307?size=medium",
+            "id": "10004",
+            "name": "大型工作",
+            "self": "https://itmrchow.atlassian.net/rest/api/2/issuetype/10004",
+            "subtask": false
+          },
+          "priority": {
+            "iconUrl": "https://itmrchow.atlassian.net/images/icons/priorities/medium_new.svg",
+            "id": "3",
+            "name": "Medium",
+            "self": "https://itmrchow.atlassian.net/rest/api/2/priority/3"
+          },
+          "status": {
+            "description": "",
+            "iconUrl": "https://itmrchow.atlassian.net/",
+            "id": "10000",
+            "name": "待辦事項",
+            "self": "https://itmrchow.atlassian.net/rest/api/2/status/10000",
+            "statusCategory": {
+              "colorName": "blue-gray",
+              "id": 2,
+              "key": "new",
+              "name": "待辦事項",
+              "self": "https://itmrchow.atlassian.net/rest/api/2/statuscategory/2"
+            }
+          },
+          "summary": "TODO-LIST"
+        },
+        "id": "10002",
+        "key": "TODO-3",
+        "self": "https://itmrchow.atlassian.net/rest/api/2/issue/10002"
+      },
+      "priority": {
+        "iconUrl": "https://itmrchow.atlassian.net/images/icons/priorities/medium_new.svg",
+        "id": "3",
+        "name": "Medium",
+        "self": "https://itmrchow.atlassian.net/rest/api/2/priority/3"
+      },
+      "progress": { "progress": 0, "total": 0 },
+      "project": {
+        "avatarUrls": {
+          "16x16": "https://itmrchow.atlassian.net/rest/api/2/universal_avatar/view/type/project/avatar/10404?size=xsmall",
+          "24x24": "https://itmrchow.atlassian.net/rest/api/2/universal_avatar/view/type/project/avatar/10404?size=small",
+          "32x32": "https://itmrchow.atlassian.net/rest/api/2/universal_avatar/view/type/project/avatar/10404?size=medium",
+          "48x48": "https://itmrchow.atlassian.net/rest/api/2/universal_avatar/view/type/project/avatar/10404"
+        },
+        "id": "10000",
+        "key": "TODO",
+        "name": "TODO-LIST",
+        "projectTypeKey": "software",
+        "self": "https://itmrchow.atlassian.net/rest/api/2/project/10000",
+        "simplified": true
+      },
+      "reporter": {
+        "accountId": "5d145a8e5a5f210c4873c54d",
+        "accountType": "atlassian",
+        "active": true,
+        "avatarUrls": {
+          "16x16": "https://secure.gravatar.com/avatar/feb838bed6d6320f103dd79a05f71d5c?d=https%3A%2F%2Favatar-management--avatars.us-west-2.prod.public.atl-paas.net%2Fdefault-avatar-3.png",
+          "24x24": "https://secure.gravatar.com/avatar/feb838bed6d6320f103dd79a05f71d5c?d=https%3A%2F%2Favatar-management--avatars.us-west-2.prod.public.atl-paas.net%2Fdefault-avatar-3.png",
+          "32x32": "https://secure.gravatar.com/avatar/feb838bed6d6320f103dd79a05f71d5c?d=https%3A%2F%2Favatar-management--avatars.us-west-2.prod.public.atl-paas.net%2Fdefault-avatar-3.png",
+          "48x48": "https://secure.gravatar.com/avatar/feb838bed6d6320f103dd79a05f71d5c?d=https%3A%2F%2Favatar-management--avatars.us-west-2.prod.public.atl-paas.net%2Fdefault-avatar-3.png"
+        },
+        "displayName": "吳建霆",
+        "self": "https://itmrchow.atlassian.net/rest/api/2/user?accountId=5d145a8e5a5f210c4873c54d",
+        "timeZone": "Asia/Taipei"
+      },
+      "resolution": null,
+      "resolutiondate": null,
+      "security": null,
+      "status": {
+        "description": "",
+        "iconUrl": "https://itmrchow.atlassian.net/",
+        "id": "10000",
+        "name": "To Do",
+        "self": "https://itmrchow.atlassian.net/rest/api/2/status/10000",
+        "statusCategory": {
+          "colorName": "blue-gray",
+          "id": 2,
+          "key": "new",
+          "name": "New",
+          "self": "https://itmrchow.atlassian.net/rest/api/2/statuscategory/2"
+        }
+      },
+      "statusCategory": {
+        "colorName": "blue-gray",
+        "id": 2,
+        "key": "new",
+        "name": "New",
+        "self": "https://itmrchow.atlassian.net/rest/api/2/statuscategory/2"
+      },
+      "statuscategorychangedate": "2025-09-03T13:21:44.366+0800",
+      "subtasks": [],
+      "summary": "[BE] 建立一個Jira-doc",
+      "timeestimate": null,
+      "timeoriginalestimate": null,
+      "timespent": null,
+      "timetracking": {},
+      "updated": "2025-09-03T13:31:47.271+0800",
+      "versions": [],
+      "votes": {
+        "hasVoted": false,
+        "self": "https://itmrchow.atlassian.net/rest/api/2/issue/TODO-1/votes",
+        "votes": 0
+      },
+      "watches": {
+        "isWatching": true,
+        "self": "https://itmrchow.atlassian.net/rest/api/2/issue/TODO-1/watchers",
+        "watchCount": 1
+      },
+      "workratio": -1
+    },
+    "id": "10000",
+    "key": "TODO-1",
+    "self": "https://itmrchow.atlassian.net/rest/api/2/10000"
+  },
+  "issue_event_type_name": "issue_assigned",
+  "timestamp": 1756877507271,
+  "user": {
+    "accountId": "5d145a8e5a5f210c4873c54d",
+    "accountType": "atlassian",
+    "active": true,
+    "avatarUrls": {
+      "16x16": "https://secure.gravatar.com/avatar/feb838bed6d6320f103dd79a05f71d5c?d=https%3A%2F%2Favatar-management--avatars.us-west-2.prod.public.atl-paas.net%2Fdefault-avatar-3.png",
+      "24x24": "https://secure.gravatar.com/avatar/feb838bed6d6320f103dd79a05f71d5c?d=https%3A%2F%2Favatar-management--avatars.us-west-2.prod.public.atl-paas.net%2Fdefault-avatar-3.png",
+      "32x32": "https://secure.gravatar.com/avatar/feb838bed6d6320f103dd79a05f71d5c?d=https%3A%2F%2Favatar-management--avatars.us-west-2.prod.public.atl-paas.net%2Fdefault-avatar-3.png",
+      "48x48": "https://secure.gravatar.com/avatar/feb838bed6d6320f103dd79a05f71d5c?d=https%3A%2F%2Favatar-management--avatars.us-west-2.prod.public.atl-paas.net%2Fdefault-avatar-3.png"
+    },
+    "displayName": "吳建霆",
+    "self": "https://itmrchow.atlassian.net/rest/api/2/user?accountId=5d145a8e5a5f210c4873c54d",
+    "timeZone": "Asia/Taipei"
+  },
+  "webhookEvent": "jira:issue_updated"
+}

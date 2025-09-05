@@ -69,3 +69,5 @@ go.work
 # Temporary files
 tmp/
 temp/
+
+projects/

@@ -8,6 +8,7 @@ import (
 	"github.com/rs/zerolog/log"
 
 	"webhook/internal/handler"
+	"webhook/internal/infrastructure/config"
 	"webhook/internal/usecase"
 )
 
@@ -15,11 +16,15 @@ func main() {
 	// 設定 Zerolog，使用適合開發的 ConsoleWriter
 	log.Logger = log.Output(zerolog.ConsoleWriter{Out: os.Stderr})
 
+	// 初始化配置
+	cfg := config.NewConfig()
+
 	// 建立 Gin 引擎
 	r := gin.Default()
 
 	// UseCase
-	execClaudeCode := usecase.NewExecClaudeCode(log.Logger)
+	jiraConfig := cfg.GetJiraConfig()
+	execClaudeCode := usecase.NewExecClaudeCode(log.Logger, jiraConfig)
 
 	// Handlers
 	handlers := handler.NewHandler(execClaudeCode)
