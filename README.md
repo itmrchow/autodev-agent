@@ -10,14 +10,16 @@
 ## Features
 - [x] 接收 PM 工具事件
   - [x] Notion
-  - [ ] Jira
+  - [x] Jira
   - Other...
 
 - [x] 觸發Agent開發 , 更新 ticket
 
 ## tech stack
 - go + gin : webhook
-- notion : pm tool
+- PM tools (chose 1)
+  - notion 
+  - jira 
 - claude : ai agent
 
 ## 部署與設定
@@ -28,7 +30,7 @@
 - webhook knowledge
 
 ### Environment Variables
-
+****
 #### 核心服務設定
 <!-- - `PM_TOOL_NOTION_TOKEN` Notion API token
 - `PM_TOOL_JIRA_TOKEN` Jira API token (optional) -->
@@ -40,6 +42,9 @@
 - `GITHUB_USER_EMAIL` GitHub 使用者 email
 - `GITHUB_PERSONAL_TOKEN` GitHub Personal Access Token
 
+#### Jira 配置
+- `PM_TOOL_JIRA_EXEC_STATUS` 任務執行時ticket狀態
+- `PM_TOOL_JIRA_REVIEW_STATUS` 任務完成時等待review的ticket狀態
 <!-- #### Claude Code 配置
 - `CLAUDE_API_KEY` Claude API key（用於 AI 開發功能） -->
 
@@ -49,7 +54,7 @@
 
 ```bash
 # 拉取最新映像
-docker pull itmrchow/autodev-agent:v0.1.0
+docker pull itmrchow/autodev-agent:v0.2.0
 
 # 運行容器（包含完整配置）
 docker run -d \
@@ -74,10 +79,20 @@ docker run -d \
   - 在Claude Code 交互模式 `/mcp` , 選擇 `notion`
   - 選擇Authenticate , 進入驗證 , 交互會顯示驗證連結 , 複製驗證連結到瀏覽器進行驗證
   - 完成後會轉跳 , 會出現找不到網頁 , 將callback網址複製
-  - 輸入以下指令 , 完成驗證
+  - 建立一個新的終端輸入以下指令 , 完成驗證
   ```
   docker exec -it autodev-agent curl -X GET "<call_back_url>"
   ```
+
+- Atlassian MCP(Jira): Atlassian MCP 目前沒有自動化登入
+  - 在Claude Code 交互模式 `/mcp` , 選擇 `atlassian`
+  - 選擇Authenticate , 進入驗證 , 交互會顯示驗證連結 , 複製驗證連結到瀏覽器進行驗證
+  - 完成後會轉跳 , 會出現找不到網頁 , 將callback網址複製
+  - 建立一個新的終端輸入以下指令 , 完成驗證
+  ```
+  docker exec -it autodev-agent curl -X GET "<call_back_url>"
+  ```
+
 
 #### Local development
 ```bash
@@ -101,7 +116,7 @@ curl http://localhost:8090/health
 
 ## Todo-list
 - other model or Agent framework
-- claude code 持久化
+- claude code 設定持久化
 - update prompt to English
 - other pm tool
 - Story ticket 分析

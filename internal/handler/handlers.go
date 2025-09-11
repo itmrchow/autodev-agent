@@ -23,8 +23,8 @@ func NewHandler(ExecClaudeCode *usecase.ExecClaudeCode) *Handlers {
 	}
 }
 
-// WebhookHandler 處理所有來自 Notion 的請求
-func (h *Handlers) WebhookHandler(c *gin.Context) {
+// NotionWebhookHandler 處理所有來自 Notion 的請求
+func (h *Handlers) NotionWebhookHandler(c *gin.Context) {
 	// 讀取並記錄 request body
 	_, err := logAndRestoreRequestBody(c)
 	if err != nil {
@@ -72,6 +72,49 @@ func (h *Handlers) WebhookHandler(c *gin.Context) {
 	c.Status(http.StatusOK)
 }
 
+// JiraWebhookHandler 處理所有來自 Jira 的請求
+func (h *Handlers) JiraWebhookHandler(c *gin.Context) {
+	// 讀取並記錄 request body
+	_, err := logAndRestoreRequestBody(c)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "Cannot read request"})
+		return
+	}
+
+	var payload dto.JiraWebhookDto
+
+	// 將傳入的 JSON 綁定到結構體
+	if err := c.ShouldBindJSON(&payload); err != nil {
+		log.Error().Err(err).Msg("Failed to bind JSON")
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid request body"})
+		return
+	}
+
+	// print payload log
+	log.Info().Any("payload", payload).Msg("Received webhook payload")
+
+	// payload check
+	if !payload.IsAssignUpdate() {
+		c.Status(http.StatusOK)
+		return
+	}
+
+	go func() {
+		ticketId := payload.Issue.ID
+		log.Info().Str("pmTool", "jira").Str("ticket_id", ticketId).Msg("收到任務")
+
+		if execErr := h.execClaudeCode.ExecJiraTask(ticketId); execErr != nil {
+			log.Error().
+				Str("ticketId", ticketId).
+				Err(execErr).
+				Str("pmTool", "notion").
+				Msg("Failed to execClaudeCode")
+		}
+	}()
+
+	c.Status(http.StatusOK)
+}
+
 // HealthHandler 處理健康檢查請求
 func (h *Handlers) HealthHandler(c *gin.Context) {
 	c.String(http.StatusOK, "OK")
@@ -114,7 +157,8 @@ func (h *Handlers) MyTestHandler(c *gin.Context) {
 // RegisterRoutes 註冊所有路由
 func (h *Handlers) RegisterRoutes(r *gin.Engine) {
 	r.GET("/health", h.HealthHandler)
-	r.POST("/notion/webhook", h.WebhookHandler) // webhook路徑
+	r.POST("/notion/webhook", h.NotionWebhookHandler) // notion webhook路徑
+	r.POST("/jira/webhook", h.JiraWebhookHandler)     // jira webhook路徑
 	r.POST("/mytest", h.MyTestHandler)
 }
 
